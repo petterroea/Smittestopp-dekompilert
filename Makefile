@@ -22,14 +22,12 @@ $(EXTRACTED_DIR):
 
 $(FRESH_DIR): $(JAR_NAME)
 	mkdir -p $(FRESH_DIR)
-#	java -jar tools/jd-cli.jar $(JAR_NAME) -od $(FRESH_DIR)
-#	java -jar tools/procyon-decompiler-0.5.36.jar -jar $(JAR_NAME) -o $(FRESH_DIR)
 	java -jar tools/cfr-0.149.jar $(JAR_NAME) --outputdir $(FRESH_DIR)
 
 .PHONY: $(DIFF_DIR)
 $(DIFF_DIR):
 	mkdir -p diff
-	diff -Naur $(FRESH_DIR) $(DIRTY_DIR) > diff/deobfuscation.diff
+	diff -Nau0r $(FRESH_DIR) $(DIRTY_DIR) > diff/deobfuscation.diff
 
 .PHONY: clean
 clean:
