@@ -1,0 +1,2068 @@
+diff -Naur original/androidx/lifecycle/LifecycleController$observer$1.java decompiled/androidx/lifecycle/LifecycleController$observer$1.java
+--- original/androidx/lifecycle/LifecycleController$observer$1.java	2020-04-16 23:07:58.017554343 +0200
++++ decompiled/androidx/lifecycle/LifecycleController$observer$1.java	2020-04-16 23:08:30.984327959 +0200
+@@ -7,7 +7,7 @@
+ import d.o.j;
+ import d.o.l;
+ import d.o.m;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ 
+ public final class LifecycleController$observer$1
+ implements j {
+@@ -16,19 +16,19 @@
+         if (object != null) {
+             if (object2 != null) {
+                 object2 = object.getLifecycle();
+-                g.a(object2, "source.lifecycle");
++                Intrinsics.checkExpressionValueIsNotNull(object2, "source.lifecycle");
+                 if (((m)object2).b == g.b.DESTROYED) {
+                     throw null;
+                 }
+                 object = object.getLifecycle();
+-                g.a(object, "source.lifecycle");
++                Intrinsics.checkExpressionValueIsNotNull(object, "source.lifecycle");
+                 object = (m)object;
+                 throw null;
+             }
+-            g.a("<anonymous parameter 1>");
++            Intrinsics.createParameterIsNullExceptionMessage("<anonymous parameter 1>");
+             throw null;
+         }
+-        g.a("source");
++        Intrinsics.createParameterIsNullExceptionMessage("source");
+         throw null;
+     }
+ }
+diff -Naur original/androidx/lifecycle/LifecycleCoroutineScopeImpl.java decompiled/androidx/lifecycle/LifecycleCoroutineScopeImpl.java
+--- original/androidx/lifecycle/LifecycleCoroutineScopeImpl.java	2020-04-16 23:07:58.020887687 +0200
++++ decompiled/androidx/lifecycle/LifecycleCoroutineScopeImpl.java	2020-04-16 23:08:30.984327959 +0200
+@@ -7,7 +7,7 @@
+ import d.o.h;
+ import d.o.j;
+ import d.o.l;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ 
+ public final class LifecycleCoroutineScopeImpl
+ extends h
+@@ -18,10 +18,10 @@
+             if (a3 != null) {
+                 throw null;
+             }
+-            g.a("event");
++            Intrinsics.createParameterIsNullExceptionMessage("event");
+             throw null;
+         }
+-        g.a("source");
++        Intrinsics.createParameterIsNullExceptionMessage("source");
+         throw null;
+     }
+ }
+diff -Naur original/com/google/android/gms/location/LocationRequest.java decompiled/com/google/android/gms/location/LocationRequest.java
+--- original/com/google/android/gms/location/LocationRequest.java	2020-04-16 23:07:58.064221161 +0200
++++ decompiled/com/google/android/gms/location/LocationRequest.java	2020-04-16 23:08:30.994327991 +0200
+@@ -22,37 +22,37 @@
+ implements ReflectedParcelable {
+     public static final Parcelable.Creator<LocationRequest> CREATOR = new e();
+     public boolean A;
+-    public long B;
+-    public int C;
+-    public float D;
+-    public long E;
++    public long requestStartTime; //B
++    public int numUpdates; //C
++    public float smallestDisplacement; //D
++    public long maxWaitTime; //E
+     public int x;
+-    public long y;
+-    public long z;
++    public long interval; //y
++    public long fastestInterval; //z
+ 
+     public LocationRequest() {
+         this.x = 102;
+-        this.y = 3600000L;
+-        this.z = 600000L;
++        this.interval = 3600000L;
++        this.fastestInterval = 600000L;
+         this.A = false;
+-        this.B = Long.MAX_VALUE;
+-        this.C = Integer.MAX_VALUE;
+-        this.D = 0.0f;
+-        this.E = 0L;
++        this.requestStartTime = Long.MAX_VALUE;
++        this.numUpdates = Integer.MAX_VALUE;
++        this.smallestDisplacement = 0.0f;
++        this.maxWaitTime = 0L;
+     }
+ 
+     public LocationRequest(int n2, long l2, long l3, boolean bl, long l4, int n3, float f2, long l5) {
+         this.x = n2;
+-        this.y = l2;
+-        this.z = l3;
++        this.interval = l2;
++        this.fastestInterval = l3;
+         this.A = bl;
+-        this.B = l4;
+-        this.C = n3;
+-        this.D = f2;
+-        this.E = l5;
++        this.requestStartTime = l4;
++        this.numUpdates = n3;
++        this.smallestDisplacement = f2;
++        this.maxWaitTime = l5;
+     }
+ 
+-    public static void a(long l2) {
++    public static void setInterval(long l2) { //a
+         if (l2 >= 0L) {
+             return;
+         }
+@@ -71,8 +71,8 @@
+             return false;
+         }
+         object = (LocationRequest)object;
+-        if (this.x == ((LocationRequest)object).x && (l2 = this.y) == ((LocationRequest)object).y && this.z == ((LocationRequest)object).z && this.A == ((LocationRequest)object).A && this.B == ((LocationRequest)object).B && this.C == ((LocationRequest)object).C && this.D == ((LocationRequest)object).D) {
+-            long l3 = this.E;
++        if (this.x == ((LocationRequest)object).x && (l2 = this.interval) == ((LocationRequest)object).y && this.fastestInterval == ((LocationRequest)object).z && this.A == ((LocationRequest)object).A && this.requestStartTime == ((LocationRequest)object).B && this.numUpdates == ((LocationRequest)object).C && this.smallestDisplacement == ((LocationRequest)object).D) {
++            long l3 = this.maxWaitTime;
+             if (l3 < l2) {
+                 l3 = l2;
+             }
+@@ -90,7 +90,7 @@
+     }
+ 
+     public final int hashCode() {
+-        return Arrays.hashCode(new Object[]{this.x, this.y, Float.valueOf(this.D), this.E});
++        return Arrays.hashCode(new Object[]{this.x, this.interval, Float.valueOf(this.smallestDisplacement), this.maxWaitTime});
+     }
+ 
+     public final String toString() {
+@@ -101,31 +101,31 @@
+         stringBuilder.append(string2);
+         if (this.x != 105) {
+             stringBuilder.append(" requested=");
+-            stringBuilder.append(this.y);
++            stringBuilder.append(this.interval);
+             stringBuilder.append("ms");
+         }
+         stringBuilder.append(" fastest=");
+-        stringBuilder.append(this.z);
++        stringBuilder.append(this.fastestInterval);
+         stringBuilder.append("ms");
+-        if (this.E > this.y) {
++        if (this.maxWaitTime > this.interval) {
+             stringBuilder.append(" maxWait=");
+-            stringBuilder.append(this.E);
++            stringBuilder.append(this.maxWaitTime);
+             stringBuilder.append("ms");
+         }
+-        if (this.D > 0.0f) {
++        if (this.smallestDisplacement > 0.0f) {
+             stringBuilder.append(" smallestDisplacement=");
+-            stringBuilder.append(this.D);
++            stringBuilder.append(this.smallestDisplacement);
+             stringBuilder.append("m");
+         }
+-        if ((l2 = this.B) != Long.MAX_VALUE) {
+-            long l3 = SystemClock.elapsedRealtime();
++        if ((startTime = this.requestStartTime) != Long.MAX_VALUE) {
++            long currentTime = SystemClock.elapsedRealtime();
+             stringBuilder.append(" expireIn=");
+-            stringBuilder.append(l2 - l3);
++            stringBuilder.append(startTime - currentTime);
+             stringBuilder.append("ms");
+         }
+-        if (this.C != Integer.MAX_VALUE) {
++        if (this.numUpdates != Integer.MAX_VALUE) {
+             stringBuilder.append(" num=");
+-            stringBuilder.append(this.C);
++            stringBuilder.append(this.numUpdates);
+         }
+         stringBuilder.append(']');
+         return stringBuilder.toString();
+@@ -134,15 +134,15 @@
+     public final void writeToParcel(Parcel parcel, int n2) {
+         n2 = r.a(parcel);
+         r.a(parcel, 1, this.x);
+-        r.a(parcel, 2, this.y);
+-        r.a(parcel, 3, this.z);
++        r.a(parcel, 2, this.interval);
++        r.a(parcel, 3, this.fastestInterval);
+         r.a(parcel, 4, this.A);
+-        r.a(parcel, 5, this.B);
+-        r.a(parcel, 6, this.C);
+-        float f2 = this.D;
++        r.a(parcel, 5, this.requestStartTime);
++        r.a(parcel, 6, this.numUpdates);
++        float f2 = this.smallestDisplacement;
+         r.c(parcel, 7, 4);
+         parcel.writeFloat(f2);
+-        r.a(parcel, 8, this.E);
++        r.a(parcel, 8, this.maxWaitTime);
+         r.k(parcel, n2);
+     }
+ }
+diff -Naur original/h/k/b/a.java decompiled/h/k/b/a.java
+--- original/h/k/b/a.java	2020-04-16 23:07:43.117506002 +0200
++++ decompiled/h/k/b/a.java	2020-04-16 23:08:31.044328153 +0200
+@@ -3,7 +3,7 @@
+  */
+ package h.k.b;
+ 
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import java.util.Iterator;
+ import java.util.NoSuchElementException;
+ 
+@@ -18,7 +18,7 @@
+             this.y = arrT;
+             return;
+         }
+-        g.a("array");
++        Intrinsics.createParameterIsNullExceptionMessage("array");
+         throw null;
+     }
+ 
+diff -Naur original/h/k/b/d.java decompiled/h/k/b/d.java
+--- original/h/k/b/d.java	2020-04-16 23:08:00.354228590 +0200
++++ decompiled/h/k/b/d.java	2020-04-16 23:08:31.044328153 +0200
+@@ -24,7 +24,7 @@
+ import h.k.a.v;
+ import h.k.a.w;
+ import h.k.b.c;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import java.util.ArrayList;
+ import java.util.Collections;
+ import java.util.HashMap;
+@@ -69,11 +69,11 @@
+             } else {
+                 h.c c3 = (h.c)((ArrayList)object2).get(0);
+                 if (c3 == null) {
+-                    g.a("pair");
++                    Intrinsics.createParameterIsNullExceptionMessage("pair");
+                     throw null;
+                 }
+                 Map map = Collections.singletonMap(c3.x, c3.y);
+-                g.a(map, "java.util.Collections.si\u2026(pair.first, pair.second)");
++                Intrinsics.checkExpressionValueIsNotNull(map, "java.util.Collections.si\u2026(pair.first, pair.second)");
+             }
+         } else {
+             e e2 = e.x;
+@@ -122,13 +122,13 @@
+         hashMap3.putAll(c);
+         hashMap3.putAll(d);
+         object2 = c.values();
+-        g.a(object2, "primitiveFqNames.values");
++        Intrinsics.checkExpressionValueIsNotNull(object2, "primitiveFqNames.values");
+         object2 = object2.iterator();
+         while (object2.hasNext()) {
+             String string2 = (String)object2.next();
+             object = new StringBuilder();
+             ((StringBuilder)object).append("kotlin.jvm.internal.");
+-            g.a((Object)string2, "kotlinName");
++            Intrinsics.checkExpressionValueIsNotNull((Object)string2, "kotlinName");
+             ((StringBuilder)object).append(h.o.g.a(string2, '.', null, 2));
+             ((StringBuilder)object).append("CompanionObject");
+             object = ((StringBuilder)object).toString();
+@@ -161,7 +161,7 @@
+             this.a = class_;
+             return;
+         }
+-        g.a("jClass");
++        Intrinsics.createParameterIsNullExceptionMessage("jClass");
+         throw null;
+     }
+ 
+@@ -171,7 +171,7 @@
+     }
+ 
+     public boolean equals(Object object) {
+-        boolean bl = object instanceof d && g.a((Object)e.c.a.a.b.l.c.a(this), e.c.a.a.b.l.c.a((h.m.b)object));
++        boolean bl = object instanceof d && Intrinsics.areEqual((Object)e.c.a.a.b.l.c.a(this), e.c.a.a.b.l.c.a((h.m.b)object));
+         return bl;
+     }
+ 
+diff -Naur original/h/k/b/e.java decompiled/h/k/b/e.java
+--- original/h/k/b/e.java	2020-04-16 23:07:43.130839378 +0200
++++ decompiled/h/k/b/e.java	2020-04-16 23:08:31.044328153 +0200
+@@ -3,7 +3,7 @@
+  */
+ package h.k.b;
+ 
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import java.lang.reflect.Array;
+ import java.util.Arrays;
+ import java.util.Collection;
+@@ -17,7 +17,7 @@
+      */
+     public static final Object[] a(Collection<?> arrobject) {
+         if (arrobject == null) {
+-            g.a("collection");
++            Intrinsics.createParameterIsNullExceptionMessage("collection");
+             throw null;
+         }
+         int n2 = arrobject.size();
+@@ -43,12 +43,12 @@
+                     n2 = 0x7FFFFFFD;
+                 }
+                 arrobject2 = Arrays.copyOf(arrobject, n2);
+-                g.a((Object)arrobject2, "Arrays.copyOf(result, newSize)");
++                Intrinsics.checkExpressionValueIsNotNull((Object)arrobject2, "Arrays.copyOf(result, newSize)");
+             } else {
+                 arrobject2 = arrobject;
+                 if (!iterator.hasNext()) {
+                     arrobject = Arrays.copyOf(arrobject, n3);
+-                    g.a((Object)arrobject, "Arrays.copyOf(result, size)");
++                    Intrinsics.checkExpressionValueIsNotNull((Object)arrobject, "Arrays.copyOf(result, size)");
+                     return arrobject;
+                 }
+             }
+@@ -105,7 +105,7 @@
+                         n3 = 0x7FFFFFFD;
+                     }
+                     T[] arrT = Arrays.copyOf(var0_8, n3);
+-                    g.a(arrT, "Arrays.copyOf(result, newSize)");
++                    Intrinsics.checkExpressionValueIsNotNull(arrT, "Arrays.copyOf(result, newSize)");
+                 } else {
+                     void var6_20 = var0_8;
+                     if (!iterator.hasNext()) {
+@@ -124,7 +124,7 @@
+                 void var0_12 = var6_18;
+             } while (true);
+         }
+-        g.a("collection");
++        Intrinsics.createParameterIsNullExceptionMessage("collection");
+         throw null;
+     }
+ }
+diff -Naur original/h/k/b/g.java decompiled/h/k/b/g.java
+--- original/h/k/b/g.java	2020-04-16 23:07:43.134172722 +0200
++++ decompiled/h/k/b/g.java	1970-01-01 01:00:00.000000000 +0100
+@@ -1,66 +0,0 @@
+-/*
+- * Decompiled with CFR 0.149.
+- */
+-package h.k.b;
+-
+-import h.a;
+-import java.io.Serializable;
+-import java.util.Arrays;
+-
+-public class g {
+-    public static <T extends Throwable> T a(T t2) {
+-        String string2 = g.class.getName();
+-        StackTraceElement[] arrstackTraceElement = t2.getStackTrace();
+-        int n2 = arrstackTraceElement.length;
+-        int n3 = -1;
+-        for (int i2 = 0; i2 < n2; ++i2) {
+-            if (!string2.equals(arrstackTraceElement[i2].getClassName())) continue;
+-            n3 = i2;
+-        }
+-        t2.setStackTrace(Arrays.copyOfRange(arrstackTraceElement, n3 + 1, n2));
+-        return t2;
+-    }
+-
+-    public static void a() {
+-        a a3 = new a();
+-        g.a(a3);
+-        throw a3;
+-    }
+-
+-    public static void a(Object object, String string2) {
+-        if (object != null) {
+-            return;
+-        }
+-        object = new IllegalStateException(e.a.a.a.a.b(string2, " must not be null"));
+-        g.a(object);
+-        throw (IllegalStateException)object;
+-    }
+-
+-    public static void a(String object) {
+-        Serializable serializable = Thread.currentThread().getStackTrace()[3];
+-        String string2 = ((StackTraceElement)serializable).getClassName();
+-        String string3 = ((StackTraceElement)serializable).getMethodName();
+-        serializable = new StringBuilder();
+-        ((StringBuilder)serializable).append("Parameter specified as non-null is null: method ");
+-        ((StringBuilder)serializable).append(string2);
+-        ((StringBuilder)serializable).append(".");
+-        ((StringBuilder)serializable).append(string3);
+-        ((StringBuilder)serializable).append(", parameter ");
+-        ((StringBuilder)serializable).append((String)object);
+-        object = new IllegalArgumentException(((StringBuilder)serializable).toString());
+-        g.a(object);
+-        throw (IllegalArgumentException)object;
+-    }
+-
+-    public static boolean a(Object object, Object object2) {
+-        boolean bl = object == null ? object2 == null : object.equals(object2);
+-        return bl;
+-    }
+-
+-    public static void b(String object) {
+-        object = new h.g(e.a.a.a.a.a("lateinit property ", (String)object, " has not been initialized"));
+-        g.a(object);
+-        throw object;
+-    }
+-}
+-
+diff -Naur original/h/k/b/h.java decompiled/h/k/b/h.java
+--- original/h/k/b/h.java	2020-04-16 23:07:43.137506067 +0200
++++ decompiled/h/k/b/h.java	2020-04-16 23:08:31.044328153 +0200
+@@ -3,7 +3,7 @@
+  */
+ package h.k.b;
+ 
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import h.k.b.l;
+ import java.io.Serializable;
+ 
+@@ -20,7 +20,7 @@
+             if (string2.startsWith("kotlin.jvm.functions.")) {
+                 string3 = string2.substring(21);
+             }
+-            g.a((Object)string3, "Reflection.renderLambdaToString(this)");
++            Intrinsics.checkExpressionValueIsNotNull((Object)string3, "Reflection.renderLambdaToString(this)");
+             return string3;
+         }
+         throw null;
+diff -Naur original/h/k/b/Intrinsics.java decompiled/h/k/b/Intrinsics.java
+--- original/h/k/b/Intrinsics.java	1970-01-01 01:00:00.000000000 +0100
++++ decompiled/h/k/b/Intrinsics.java	2020-04-16 23:08:31.044328153 +0200
+@@ -0,0 +1,69 @@
++/*
++ * Decompiled with CFR 0.149.
++ */
++package h.k.b; //package kotlin.jvm.internal;
++
++import h.a;
++import java.io.Serializable;
++import java.util.Arrays;
++//https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/jvm/runtime/kotlin/jvm/internal/Intrinsics.java
++public class Intrinsics //g {
++    public static <T extends Throwable> T sanitizeStackTrace(T throwable) { //a
++        String stackTraceToDrop = g.class.getName(); //This was an argument in the source code
++        StackTraceElement[] arrstackTraceElement = throwable.getStackTrace();
++        int size = arrstackTraceElement.length;
++        int lastIntrinsic = -1;
++        for (int i = 0; i < size; ++i) {
++            if (!stackTraceToDrop.equals(arrstackTraceElement[i].getClassName())) continue;
++            lastIntrinsic = i;
++        }
++        throwable.setStackTrace(Arrays.copyOfRange(arrstackTraceElement, lastIntrinsic + 1, size));
++        return throwable;
++    }
++
++    //One of the throwX-functions. TODO find the exact exception
++    public static void a() {
++        a a3 = new a();
++        g.a(a3);
++        throw a3;
++    }
++
++    public static void checkExpressionValueIsNotNull(Object object, String string2) {//a
++        if (object != null) {
++            return;
++        }
++        object = new IllegalStateException(e.a.a.a.a.b(string2, " must not be null"));
++        g.a(object);
++        throw (IllegalStateException)object;
++    }
++
++    public static void createParameterIsNullExceptionMessage(String object) { //a
++        Serializable serializable = Thread.currentThread().getStackTrace()[3];
++        String string2 = ((StackTraceElement)serializable).getClassName();
++        String string3 = ((StackTraceElement)serializable).getMethodName();
++        serializable = new StringBuilder();
++        ((StringBuilder)serializable).append("Parameter specified as non-null is null: method ");
++        ((StringBuilder)serializable).append(string2);
++        ((StringBuilder)serializable).append(".");
++        ((StringBuilder)serializable).append(string3);
++        ((StringBuilder)serializable).append(", parameter ");
++        ((StringBuilder)serializable).append((String)object);
++        object = new IllegalArgumentException(((StringBuilder)serializable).toString());
++        g.a(object);
++        throw (IllegalArgumentException)object;
++    }
++
++    public static boolean areEqual(Object first, Object second) { //a
++        boolean bl = first == null ? second == null : first.equals(second);
++        return bl;
++    }
++
++    public static void throwUninitializedPropertyAccessException(String object) { //b
++        //throwUninitializedProperty("lateinit property " + propertyName + " has not been initialized");
++        //Looks like throwUninitializedProperty is being compiled as an inline function
++        object = new h.g(e.a.a.a.a.a("lateinit property ", (String)object, " has not been initialized"));
++        g.a(object);
++        throw object;
++    }
++}
++
+diff -Naur original/h/k/b/j.java decompiled/h/k/b/j.java
+--- original/h/k/b/j.java	2020-04-16 23:08:00.354228590 +0200
++++ decompiled/h/k/b/j.java	2020-04-16 23:08:31.044328153 +0200
+@@ -4,7 +4,7 @@
+ package h.k.b;
+ 
+ import h.k.b.b;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import h.k.b.i;
+ import h.m.a;
+ import h.m.c;
+@@ -22,8 +22,8 @@
+             object = (j)object;
+             i i2 = (i)this;
+             c c3 = i2.A;
+-            i i3 = (i)object;
+-            if (!(c3.equals(i3.A) && i2.B.equals(i3.B) && i2.C.equals(i3.C) && g.a(this.y, ((b)object).y))) {
++            i i3 = (i)object;//                                                (Assumption)
++            if (!(c3.equals(i3.A) && i2.B.equals(i3.B) && i2.C.equals(i3.C) && Intrinsics.areEqual(this.y, ((b)object).y))) {
+                 bl = false;
+             }
+             return bl;
+diff -Naur original/h/o/a.java decompiled/h/o/a.java
+--- original/h/o/a.java	2020-04-16 23:07:43.150839443 +0200
++++ decompiled/h/o/a.java	2020-04-16 23:08:31.044328153 +0200
+@@ -3,21 +3,21 @@
+  */
+ package h.o;
+ 
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import java.nio.charset.Charset;
+ 
+ public final class a {
+     public static final Charset a;
+ 
+     public static {
+-        g.a((Object)Charset.forName("UTF-8"), "Charset.forName(\"UTF-8\")");
+-        g.a((Object)Charset.forName("UTF-16"), "Charset.forName(\"UTF-16\")");
+-        g.a((Object)Charset.forName("UTF-16BE"), "Charset.forName(\"UTF-16BE\")");
+-        g.a((Object)Charset.forName("UTF-16LE"), "Charset.forName(\"UTF-16LE\")");
++        Intrinsics.checkExpressionValueIsNotNull((Object)Charset.forName("UTF-8"), "Charset.forName(\"UTF-8\")");
++        Intrinsics.checkExpressionValueIsNotNull((Object)Charset.forName("UTF-16"), "Charset.forName(\"UTF-16\")");
++        Intrinsics.checkExpressionValueIsNotNull((Object)Charset.forName("UTF-16BE"), "Charset.forName(\"UTF-16BE\")");
++        Intrinsics.checkExpressionValueIsNotNull((Object)Charset.forName("UTF-16LE"), "Charset.forName(\"UTF-16LE\")");
+         Charset charset = Charset.forName("US-ASCII");
+-        g.a((Object)charset, "Charset.forName(\"US-ASCII\")");
++        Intrinsics.checkExpressionValueIsNotNull((Object)charset, "Charset.forName(\"US-ASCII\")");
+         a = charset;
+-        g.a((Object)Charset.forName("ISO-8859-1"), "Charset.forName(\"ISO-8859-1\")");
++        Intrinsics.checkExpressionValueIsNotNull((Object)Charset.forName("ISO-8859-1"), "Charset.forName(\"ISO-8859-1\")");
+     }
+ }
+ 
+diff -Naur original/j/b/a/h.java decompiled/j/b/a/h.java
+--- original/j/b/a/h.java	2020-04-16 23:07:44.077509116 +0200
++++ decompiled/j/b/a/h.java	2020-04-16 23:08:31.047661497 +0200
+@@ -38,7 +38,7 @@
+     public final RequestQueue a;
+     public DeviceClient b;
+     public boolean c;
+-    public boolean d;
++    public boolean provisioningStarted;
+     public boolean e;
+     public String f;
+     public final String g;
+@@ -141,11 +141,11 @@
+                             throw null;
+                         }
+                     };
+-                    if (this.d) {
++                    if (this.provisioningStarted) {
+                         b3.a(new VolleyError("Provisioning already started"));
+                     }
+                     l.a.a.d.c("Starting device provisioning", new Object[0]);
+-                    this.d = true;
++                    this.provisioningStarted = true;
+                     object = new k((String)object, b3, 1, "https://api-smittestopp-prod.azure-api.net/onboarding/register-device", null, new l(b3), new m(b3));
+                     ((Request)object).setRetryPolicy(new DefaultRetryPolicy(10000, 0, 0.0f));
+                     this.a.add(object);
+diff -Naur original/kotlinx/coroutines/android/AndroidExceptionPreHandler.java decompiled/kotlinx/coroutines/android/AndroidExceptionPreHandler.java
+--- original/kotlinx/coroutines/android/AndroidExceptionPreHandler.java	2020-04-16 23:08:03.260904687 +0200
++++ decompiled/kotlinx/coroutines/android/AndroidExceptionPreHandler.java	2020-04-16 23:08:31.060994874 +0200
+@@ -11,7 +11,7 @@
+ import h.b;
+ import h.j.a;
+ import h.j.d;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import h.k.b.i;
+ import h.k.b.l;
+ import h.m.e;
+@@ -55,7 +55,7 @@
+             if (throwable != null) {
+                 Thread thread = Thread.currentThread();
+                 if (Build.VERSION.SDK_INT >= 28) {
+-                    g.a((Object)thread, "thread");
++                    Intrinsics.checkExpressionValueIsNotNull((Object)thread, "thread");
+                     thread.getUncaughtExceptionHandler().uncaughtException(thread, throwable);
+                 } else {
+                     object = this.getPreHandler();
+@@ -69,10 +69,10 @@
+                 }
+                 return;
+             }
+-            g.a("exception");
++            Intrinsics.createParameterIsNullExceptionMessage("exception");
+             throw null;
+         }
+-        g.a("context");
++        Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+@@ -88,7 +88,7 @@
+         boolean bl2 = false;
+         try {
+             method = Thread.class.getDeclaredMethod("getUncaughtExceptionPreHandler", new Class[0]);
+-            g.a((Object)method, "it");
++            Intrinsics.checkExpressionValueIsNotNull((Object)method, "it");
+             bl = bl2;
+         }
+         catch (Throwable throwable) {
+diff -Naur original/no/simula/corona/BootCompletedReceiver.java decompiled/no/simula/corona/BootCompletedReceiver.java
+--- original/no/simula/corona/BootCompletedReceiver.java	2020-04-16 23:07:48.640857255 +0200
++++ decompiled/no/simula/corona/BootCompletedReceiver.java	2020-04-16 23:08:31.060994874 +0200
+@@ -20,7 +20,7 @@
+ import android.os.Build;
+ import android.os.SystemClock;
+ import h.e;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.a0;
+ import l.a.a;
+ import no.simula.corona.DataCollectorService;
+@@ -30,7 +30,7 @@
+     public void onReceive(Context context, Intent object) {
+         if (context != null) {
+             if (object != null) {
+-                if (g.a((Object)"android.intent.action.BOOT_COMPLETED", (Object)object.getAction()) && (a0.c(context) || a0.d(context))) {
++                if (Intrinsics.areEqual((Object)"android.intent.action.BOOT_COMPLETED", (Object)object.getAction()) && (a0.c(context) || a0.d(context))) {
+                     if (Build.VERSION.SDK_INT >= 26) {
+                         object = new Intent(context, DataCollectorService.class);
+                         object.putExtra("service-command", 4);
+@@ -53,10 +53,10 @@
+                 }
+                 return;
+             }
+-            g.a("intent");
++            Intrinsics.createParameterIsNullExceptionMessage("intent");
+             throw null;
+         }
+-        g.a("context");
++        Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ }
+diff -Naur original/no/simula/corona/ConsentActivity.java decompiled/no/simula/corona/ConsentActivity.java
+--- original/no/simula/corona/ConsentActivity.java	2020-04-16 23:08:03.500905466 +0200
++++ decompiled/no/simula/corona/ConsentActivity.java	2020-04-16 23:08:31.060994874 +0200
+@@ -21,7 +21,7 @@
+ import android.widget.Button;
+ import android.widget.TextView;
+ import d.b.a.h;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import java.util.HashMap;
+ import no.simula.corona.R$id;
+ 
+@@ -57,11 +57,11 @@
+         super.onCreate(bundle);
+         this.setContentView(2131558428);
+         TextView textView = (TextView)this.a(R$id.privacy_policy);
+-        g.a((Object)textView, "privacy_policy");
++        Intrinsics.checkExpressionValueIsNotNull((Object)textView, "privacy_policy");
+         bundle = Build.VERSION.SDK_INT >= 24 ? Html.fromHtml((String)this.getString(2131886210), (int)0) : Html.fromHtml((String)this.getString(2131886210));
+         textView.setText((CharSequence)bundle);
+         bundle = (TextView)this.a(R$id.privacy_policy);
+-        g.a((Object)bundle, "privacy_policy");
++        Intrinsics.checkExpressionValueIsNotNull((Object)bundle, "privacy_policy");
+         bundle.setMovementMethod(LinkMovementMethod.getInstance());
+         ((Button)this.a(R$id.confirmConsent)).setOnClickListener(new View.OnClickListener(0, this){
+             public final /* synthetic */ int x;
+diff -Naur original/no/simula/corona/CoronaApp.java decompiled/no/simula/corona/CoronaApp.java
+--- original/no/simula/corona/CoronaApp.java	2020-04-16 23:07:57.787553596 +0200
++++ decompiled/no/simula/corona/CoronaApp.java	2020-04-16 23:08:31.060994874 +0200
+@@ -15,7 +15,7 @@
+ import d.o.s;
+ import d.o.t;
+ import d.r.b;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import l.a.a;
+ 
+ public final class CoronaApp
+@@ -54,7 +54,7 @@
+         @Override
+         public void a(int n2, String string2, String string3, Throwable throwable) {
+             if (string3 == null) {
+-                g.a("message");
++                Intrinsics.createParameterIsNullExceptionMessage("message");
+                 throw null;
+             }
+             if (n2 == 2) return;
+diff -Naur original/no/simula/corona/DataCollectorService.java decompiled/no/simula/corona/DataCollectorService.java
+--- original/no/simula/corona/DataCollectorService.java	2020-04-16 23:07:57.904220642 +0200
++++ decompiled/no/simula/corona/DataCollectorService.java	2020-04-16 23:08:31.060994874 +0200
+@@ -85,11 +85,18 @@
+ import org.greenrobot.eventbus.ThreadMode;
+ import org.json.JSONObject;
+ 
++static final int SERVICE_COMMAND_STOP_LOCATION_UPDATES = 0;
++static final int SERVICE_COMMAND_START_LOCATION_UPDATES = 1;
++static final int SERVICE_COMMAND_START_BLUETOOTH_UPDATES = 2;
++static final int SERVICE_COMMAND_STOP_BLUETOOTH_UPDATES = 3;
++static final int SERVICE_COMMAND_START_ALL_UPDATES = 4;
++static final int SERVICE_COMMAND_STOP_ALL_UPDATES = 5;
++
+ public final class DataCollectorService
+ extends Service
+ implements h {
+     public boolean A;
+-    public LocationRequest B;
++    public LocationRequest locationRequest;
+     public b C;
+     public e.c.a.a.e.a D;
+     public long E;
+@@ -113,27 +120,27 @@
+     public DataCollectorService() {
+         LocationRequest locationRequest = new LocationRequest();
+         LocationRequest.a(12000L);
+-        locationRequest.y = 12000L;
++        locationRequest.interval = 12000L;
+         if (!locationRequest.A) {
+-            locationRequest.z = (long)((double)12000L / 6.0);
++            locationRequest.fastestInterval = (long)((double)12000L / 6.0);
+         }
+-        LocationRequest.a(10000L);
++        LocationRequest.setInterval(10000L);
+         locationRequest.A = true;
+-        locationRequest.z = 10000L;
++        locationRequest.fastestInterval = 10000L;
+         locationRequest.x = 100;
+-        this.B = locationRequest;
++        this.locationRequest = locationRequest;
+         this.E = a0.a();
+         this.F = 1;
+     }
+ 
+-    public static final void a(Context context) {
++    public static final void Intent_startBluetoothUpdates(Context context) { //a
+         if (context != null) {
+             Intent intent = new Intent(context, DataCollectorService.class);
+-            intent.putExtra("service-command", 2);
++            intent.putExtra("service-command", SERVICE_COMMAND_START_BLUETOOTH_UPDATES);
+             context.startService(intent);
+             return;
+         }
+-        h.k.b.g.a("context");
++        h.k.b.g.Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+@@ -150,9 +157,9 @@
+                 if (object2 != null) {
+                     ((t)((MeasurementDatabase)object2).i()).a();
+                     object2 = new d.i.a.g((Context)dataCollectorService);
+-                    ((d.i.a.g)object2).b(dataCollectorService.getString(2131886151));
+-                    object2.O.icon = 2131230888;
+-                    ((d.i.a.g)object2).a(dataCollectorService.getString(2131886150));
++                    ((d.i.a.g)object2).b(dataCollectorService.getString(R.string.data_deleted_notification));
++                    object2.O.icon = R.drawable.ic_stat_name;
++                    ((d.i.a.g)object2).a(dataCollectorService.getString(R.string.data_deleted_action));
+                     ((d.i.a.g)object2).l = 1;
+                     ((d.i.a.g)object2).f = object;
+                     ((d.i.a.g)object2).a(true);
+@@ -172,10 +179,10 @@
+                     }
+                     throw new h.e("null cannot be cast to non-null type android.app.NotificationManager");
+                 }
+-                h.k.b.g.b("mDatabase");
++                h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDatabase");
+                 throw null;
+             }
+-            h.k.b.g.b("mDatabase");
++            h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDatabase");
+             throw null;
+         }
+         throw null;
+@@ -227,7 +234,7 @@
+                     ((t)object2).a.d();
+                 }
+             }
+-            h.k.b.g.b("mDatabase");
++            h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDatabase");
+             throw null;
+         }
+         throw null;
+@@ -238,6 +245,7 @@
+      * Enabled unnecessary exception pruning
+      * Enabled aggressive exception aggregation
+      */
++    //TODO this is of interest
+     public static final /* synthetic */ void a(DataCollectorService dataCollectorService, String string2, o o2) {
+         if (dataCollectorService == null) {
+             throw null;
+@@ -253,15 +261,17 @@
+                 ((Message)object).setProperty("eventType", string2);
+                 Object object3 = dataCollectorService.M;
+                 if (object3 == null) {
+-                    h.k.b.g.b("mDevice");
++                    h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDevice");
+                     throw null;
+                 }
+                 object2 = dataCollectorService.new a(string2, (List<Integer>)object2);
+                 if (((j.b.a.h)object3).c && ((j.b.a.h)object3).b != null) {
+-                    if (h.k.b.g.a((Object)((Message)object).getContentType(), (Object)((j.b.a.h)object3).h) ^ true) {
++                    //h.k.b.g.Intrinsics.a is most likely areEqual
++                    if (h.k.b.g.Intrinsics.a((Object)((Message)object).getContentType(), (Object)((j.b.a.h)object3).h) ^ true) {
+                         ((Message)object).setContentTypeFinal(((j.b.a.h)object3).h);
+                     }
+-                    if (h.k.b.g.a((Object)((Message)object).getContentEncoding(), (Object)((j.b.a.h)object3).g) ^ true) {
++                    //most likely areEqual
++                    if (h.k.b.g.Intrinsics.a((Object)((Message)object).getContentEncoding(), (Object)((j.b.a.h)object3).g) ^ true) {
+                         ((Message)object).setContentEncoding(((j.b.a.h)object3).g);
+                     }
+                     try {
+@@ -305,7 +315,7 @@
+             if (var3_5 != 1968882350 || !var1_1.equals("bluetooth")) ** GOTO lbl-1000
+             var0 = var0.K;
+             if (var0 == null) {
+-                h.k.b.g.b("mDatabase");
++                h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDatabase");
+                 throw null;
+             }
+             var0 = (j.b.a.c)var0.h();
+@@ -322,7 +332,7 @@
+         if (var1_1.equals("gps")) {
+             var0 = var0.K;
+             if (var0 == null) {
+-                h.k.b.g.b("mDatabase");
++                h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDatabase");
+                 throw null;
+             }
+             var0 = (t)var0.i();
+@@ -387,18 +397,18 @@
+         }
+     }
+ 
+-    public static final void b(Context context) {
++    public static final void Intent_startLocationUpdates(Context context) { //b
+         if (context != null) {
+             Intent intent = new Intent(context, DataCollectorService.class);
+-            intent.putExtra("service-command", 1);
++            intent.putExtra("service-command", SERVICE_COMMAND_START_LOCATION_UPDATES);
+             context.startService(intent);
+             return;
+         }
+-        h.k.b.g.a("context");
++        h.k.b.g.Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+-    public final Notification a() {
++    public final Notification createNotification() {
+         Intent intent = new Intent((Context)this, DataCollectorService.class);
+         intent.putExtra("from-service", true);
+         intent = PendingIntent.getService((Context)this, (int)0, (Intent)intent, (int)0x8000000);
+@@ -406,26 +416,26 @@
+         object.setFlags(0x10008000);
+         PendingIntent pendingIntent = PendingIntent.getActivity((Context)this, (int)0, (Intent)object, (int)0);
+         object = new d.i.a.g((Context)this);
+-        ((d.i.a.g)object).b(this.getString(2131886208));
+-        object.O.icon = 2131230888;
+-        ((d.i.a.g)object).a(this.getString(2131886195));
++        ((d.i.a.g)object).b(this.getString(R.string.persistent_notification_title));
++        object.O.icon = R.drawable.ic_stat_name;
++        ((d.i.a.g)object).a(this.getString(R.string.notification_description));
+         ((d.i.a.g)object).l = 1;
+-        ((d.i.a.g)object).a(2131230889, this.getString(2131886227), (PendingIntent)intent);
+-        ((d.i.a.g)object).a(2131230884, this.getString(2131886200), pendingIntent);
++        ((d.i.a.g)object).a(2131230889, this.getString(R.string.stop), (PendingIntent)intent);
++        ((d.i.a.g)object).a(2131230884, this.getString(R.string.open), pendingIntent);
+         if (Build.VERSION.SDK_INT >= 26) {
+             ((d.i.a.g)object).I = "Smittestopp Notification Channel";
+         }
+         intent = ((d.i.a.g)object).a();
+-        h.k.b.g.a((Object)intent, "builder.build()");
++        h.k.b.g.Intrinsics.checkExpressionValueIsNotNull((Object)intent, "builder.build()");
+         return intent;
+     }
+ 
+-    public final Notification a(int n2) {
++    public final Notification createNotification(int iconId) { //a
+         PendingIntent pendingIntent = PendingIntent.getActivity((Context)this, (int)0, (Intent)new Intent((Context)this, SplashActivity.class), (int)0);
+         d.i.a.g g2 = new d.i.a.g((Context)this);
+-        g2.b(this.getString(n2));
+-        g2.O.icon = 2131230888;
+-        g2.a(this.getString(2131886215));
++        g2.b(this.getString(iconId));
++        g2.O.icon = R.drawable.ic_stat_name;
++        g2.a(this.getString(R.string.reminder_description));
+         g2.l = 1;
+         g2.f = pendingIntent;
+         g2.a(true);
+@@ -433,7 +443,7 @@
+             g2.I = "Smittestopp Reminders";
+         }
+         g2 = g2.a();
+-        h.k.b.g.a((Object)g2, "notification.build()");
++        h.k.b.Intrinsics.checkExpressionValueIsNotNull((Object)g2, "notification.build()");
+         return g2;
+     }
+ 
+@@ -467,10 +477,10 @@
+                     ((j.b.a.c)object2).a.d();
+                 }
+             }
+-            h.k.b.g.b("mDatabase");
++            h.k.b.Intrinsics.throwUninitializedPropertyAccessException("mDatabase");
+             throw null;
+         }
+-        h.k.b.g.a("deviceId");
++        h.k.b.Intrinsics.createParameterIsNullExceptionMessage("deviceId");
+         throw null;
+     }
+ 
+@@ -497,7 +507,7 @@
+      * Enabled unnecessary exception pruning
+      * Enabled aggressive exception aggregation
+      */
+-    public final void d() {
++    public final void startBluetoothUpdates() { //d
+         Object object;
+         Object object2;
+         block12: {
+@@ -512,7 +522,7 @@
+                     if (object != null && object.isEnabled()) {
+                         Object object3;
+                         object = object2.getAdapter();
+-                        h.k.b.g.a(object, "bluetoothManager.adapter");
++                        h.k.b.Intrinsics.checkExpressionValueIsNotNull(object, "bluetoothManager.adapter");
+                         if (object.getBluetoothLeAdvertiser() == null) {
+                             l.a.a.d.d("Le advertiser is not supported on this device", new Object[0]);
+                             object3 = new EventProperties();
+@@ -527,12 +537,15 @@
+                         object = new e((Context)this, (BluetoothManager)object2);
+                         this.R = object;
+                         object2 = object2.getAdapter();
+-                        h.k.b.g.a(object2, "bluetoothManager.adapter");
++                        h.k.b.Intrinsics.checkExpressionValueIsNotNull(object2, "bluetoothManager.adapter");
++                        
+                         this.P = object = new j.b.a.b0.a(object2.getBluetoothLeAdvertiser());
+                         object2 = this.getApplication();
+-                        h.k.b.g.a(object2, "this.application");
++                        h.k.b.Intrinsics.checkExpressionValueIsNotNull(object2, "this.application");
++                        
+                         object = j.a.a.a.a.a.a.a();
+-                        h.k.b.g.a(object, "BluetoothLeScannerCompat.getScanner()");
++                        h.k.b.Intrinsics.checkExpressionValueIsNotNull(object, "BluetoothLeScannerCompat.getScanner()");
++                        
+                         this.Q = object3 = new i((Application)object2, this, (j.a.a.a.a.a.a)object);
+                         break block12;
+                     }
+@@ -590,7 +603,7 @@
+      * Enabled unnecessary exception pruning
+      * Enabled aggressive exception aggregation
+      */
+-    public final void e() {
++    public final void startLocationUpdates() { //e
+         l.a.a.d.c("Starting location updates", new Object[0]);
+         try {
+             if (!j.b.a.d0.a.a((Context)this)) {
+@@ -599,7 +612,7 @@
+             }
+             Object object = this.D;
+             if (object != null) {
+-                Object object2 = this.B;
++                Object object2 = this.locationRequest;
+                 b b3 = this.C;
+                 if (b3 != null) {
+                     ((e.c.a.a.e.a)object).a((LocationRequest)object2, b3, Looper.myLooper());
+@@ -612,7 +625,7 @@
+                     object.d();
+                     return;
+                 }
+-                h.k.b.g.b("locationCallback");
++                h.k.b.g.Intrinsics.b("locationCallback");
+                 throw null;
+             }
+         }
+@@ -622,7 +635,7 @@
+             return;
+         }
+         {
+-            h.k.b.g.b("fusedLocationClient");
++            h.k.b.g.Intrinsics.b("fusedLocationClient");
+         }
+         throw null;
+     }
+@@ -641,7 +654,7 @@
+             var1_2 = this.M;
+             var2_18 = null;
+             if (var1_2 == null) {
+-                h.k.b.g.b("mDevice");
++                h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDevice");
+                 throw null;
+             }
+             if (!var1_2.c) {
+@@ -680,7 +693,8 @@
+                     var1_6 = var2_18;
+                     if (!var3_19.hasNext()) break block9;
+                     var1_7 = (ResolveInfo)var3_19.next();
+-                } while (!h.k.b.g.a((Object)var1_7.activityInfo.applicationInfo.packageName, (Object)"com.android.vending"));
++                    // h.k.b.g.Intrinsics.a most likely areEqual
++                } while (!h.k.b.g.Intrinsics.a((Object)var1_7.activityInfo.applicationInfo.packageName, (Object)"com.android.vending"));
+                 var1_8 = var1_7.activityInfo;
+                 var2_18 = new ComponentName(var1_8.applicationInfo.packageName, var1_8.name);
+                 var1_9 = new Intent("android.intent.action.VIEW", Uri.parse((String)"market://details?id=no.simula.smittestopp"));
+@@ -697,9 +711,9 @@
+             }
+             var1_14 = PendingIntent.getActivity((Context)this, (int)0, (Intent)var1_13, (int)0);
+             var2_18 = new d.i.a.g((Context)this);
+-            var2_18.b(this.getString(2131886191));
+-            var2_18.O.icon = 2131230888;
+-            var2_18.a(this.getString(2131886192));
++            var2_18.b(this.getString(R.string.new_version_available));
++            var2_18.O.icon = R.drawable.ic_stat_name;
++            var2_18.a(this.getString(R.string.new_version_description));
+             var2_18.l = 1;
+             var2_18.f = var1_14;
+             var2_18.a(true);
+@@ -731,7 +745,7 @@
+      * Enabled unnecessary exception pruning
+      * Enabled aggressive exception aggregation
+      */
+-    public final void g() {
++    public final void stopBluetoothUpdates() { //g
+         if (!this.O) {
+             l.a.a.d.c("bluetooth is already closed", new Object[0]);
+             return;
+@@ -784,7 +798,7 @@
+      * Enabled unnecessary exception pruning
+      * Enabled aggressive exception aggregation
+      */
+-    public final void h() {
++    public final void stopLocationUpdates() { //
+         if (!this.y) {
+             l.a.a.d.c("location services already closed", new Object[0]);
+             return;
+@@ -807,7 +821,7 @@
+                     this.y = false;
+                     return;
+                 }
+-                h.k.b.g.b("locationCallback");
++                h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("locationCallback");
+                 throw null;
+             }
+         }
+@@ -817,7 +831,7 @@
+             return;
+         }
+         {
+-            h.k.b.g.b("fusedLocationClient");
++            h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("fusedLocationClient");
+         }
+         throw null;
+     }
+@@ -833,7 +847,7 @@
+             if (!a0.h((Context)this)) {
+                 Object object = CoronaApp.z;
+                 object = object != null ? Boolean.valueOf(((CoronaApp)object).x) : null;
+-                if (!h.k.b.g.a(object, true)) return false;
++                if (!h.k.b.g.Intrinsics.areEqual(object, true)) return false;
+                 object = this.getSystemService("notification");
+                 if (object == null) throw new h.e("null cannot be cast to non-null type android.app.NotificationManager");
+                 object = (NotificationManager)object;
+@@ -841,9 +855,9 @@
+                 if (object2 != null && !((CoronaApp)object2).y) {
+                     PendingIntent pendingIntent = PendingIntent.getActivity((Context)this, (int)0, (Intent)new Intent((Context)this, SplashActivity.class), (int)0);
+                     object2 = new d.i.a.g((Context)this);
+-                    ((d.i.a.g)object2).b(this.getString(2131886208));
+-                    object2.O.icon = 2131230888;
+-                    ((d.i.a.g)object2).a(this.getString(2131886242));
++                    ((d.i.a.g)object2).b(this.getString(R.string.persistent_notification_title));
++                    object2.O.icon = R.drawable.ic_stat_name;
++                    ((d.i.a.g)object2).a(this.getString(R.string.you_need_authentication));
+                     ((d.i.a.g)object2).l = 1;
+                     ((d.i.a.g)object2).f = pendingIntent;
+                     ((d.i.a.g)object2).a(true);
+@@ -851,22 +865,22 @@
+                         ((d.i.a.g)object2).I = "Smittestopp Notification Channel";
+                     }
+                     object2 = ((d.i.a.g)object2).a();
+-                    h.k.b.g.a(object2, "builder.build()");
++                    h.k.b.g.Intrinsics.checkExpressionValueIsNotNull(object2, "builder.build()");
+                     object.notify(13, (Notification)object2);
+                     object = CoronaApp.z;
+                     if (object != null) {
+                         ((CoronaApp)object).y = true;
+                     }
+                 }
+-                this.h();
+-                this.g();
++                this.stopLocationUpdates();
++                this.stopBluetoothUpdates();
+                 this.stopSelf();
+                 return false;
+             } else {
+                 String string2 = a0.f((Context)this);
+                 if (!(true ^ g.b(string2))) return false;
+                 Application application = this.getApplication();
+-                h.k.b.g.a((Object)application, "this.application");
++                h.k.b.g.Intrinsics.checkExpressionValueIsNotNull((Object)application, "this.application");
+                 new j.b.a.h(application).a(string2, new j.b.a.g());
+             }
+             return false;
+@@ -887,13 +901,15 @@
+         l.a.a.d.c("onCreate", new Object[0]);
+         this.K = MeasurementDatabase.k.a((Context)this);
+         Object object = this.getApplication();
+-        h.k.b.g.a(object, "this.application");
++        h.k.b.g.Intrinsics.checkExpressionValueIsNotNull(object, "this.application");
++       
+         object = new j.b.a.h((Application)object);
+         this.M = object;
+         if (object != null) {
+             ((j.b.a.h)object).a();
+             object = c.a((Context)this);
+-            h.k.b.g.a(object, "LocationServices.getFuse\u2026ationProviderClient(this)");
++            h.k.b.g.Intrinsics.checkExpressionValueIsNotNull(object, "LocationServices.getFuse\u2026ationProviderClient(this)");
++            
+             this.D = object;
+             this.C = new b(){
+ 
+@@ -905,7 +921,8 @@
+                     }
+                     for (Location location : ((LocationResult)object).x) {
+                         DataCollectorService dataCollectorService = this;
+-                        h.k.b.g.a((Object)location, "location");
++                        h.k.b.g.Intrinsics.checkExpressionValueIsNotNull((Object)location, "location");
++
+                         DataCollectorService.a(dataCollectorService, location);
+                     }
+                 }
+@@ -935,7 +952,7 @@
+             k.d.a.c.b().b(this);
+             return;
+         }
+-        h.k.b.g.b("mDevice");
++        h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDevice");
+         throw null;
+     }
+ 
+@@ -948,15 +965,15 @@
+         Object object;
+         this.stopForeground(true);
+         if (this.y) {
+-            this.h();
++            this.stopLocationUpdates();
+         }
+         if (this.O) {
+-            this.g();
++            this.stopBluetoothUpdates();
+         }
+         this.J = null;
+         j.b.a.h h2 = this.M;
+         if (h2 == null) {
+-            h.k.b.g.b("mDevice");
++            h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("mDevice");
+             throw null;
+         }
+         if (h2 == null) {
+@@ -1012,7 +1029,7 @@
+             boolean bl = false;
+             l.a.a.d.a(string2, new Object[0]);
+             if (this.O) {
+-                this.g();
++                this.stopBluetoothUpdates();
+             }
+             if (((j.b.a.c0.a)object).a && this.I == null && a0.c((Context)this) && !this.A) {
+                 int n2 = 2131886120;
+@@ -1021,7 +1038,7 @@
+                     bl = true;
+                     this.c();
+                 }
+-                object = this.a(n2);
++                object = this.createNotification(n2);
+                 this.I = object;
+                 if (bl) {
+                     this.H = object;
+@@ -1034,7 +1051,7 @@
+             }
+             return;
+         }
+-        h.k.b.g.a("event");
++        h.k.b.g.Intrinsics.throwUninitializedPropertyAccessException("event");
+         throw null;
+     }
+ 
+@@ -1045,7 +1062,7 @@
+             boolean bl = false;
+             l.a.a.d.a(string2, new Object[0]);
+             if (this.y) {
+-                this.h();
++                this.stopLocationUpdates();
+             }
+             if (((j.b.a.c0.d)object).a && this.H == null && a0.d((Context)this) && !this.A) {
+                 int n2 = 2131886181;
+@@ -1054,7 +1071,7 @@
+                     bl = true;
+                     this.c();
+                 }
+-                object = this.a(n2);
++                object = this.createNotification(n2);
+                 this.H = object;
+                 if (bl) {
+                     this.I = object;
+@@ -1067,7 +1084,7 @@
+             }
+             return;
+         }
+-        h.k.b.g.a("event");
++        h.k.b.g.Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ 
+@@ -1078,55 +1095,56 @@
+         super.onRebind(intent);
+     }
+ 
+-    public int onStartCommand(Intent intent, int n2, int n3) {
++    public int onStartCommand(Intent intent, int serviceCommandId, int startId) {
+         l.a.a.d.c("onStartCommand", new Object[0]);
+         if (intent != null && intent.getBooleanExtra("from-service", false)) {
+             a0.a((Context)this, false);
+             a0.b((Context)this, false);
+-            this.h();
+-            this.g();
++            this.stopLocationUpdates();
++            this.stopBluetoothUpdates();
+             this.stopSelf();
+         }
+         if (intent != null && intent.hasExtra("service-command")) {
+-            n2 = intent.getIntExtra("service-command", -1);
+-            if (n2 != 0) {
+-                if (n2 != 1) {
+-                    if (n2 != 2) {
+-                        if (n2 != 3) {
+-                            if (n2 != 4) {
+-                                if (n2 == 5) {
++            //Re-use of variable
++            serviceCommandId = intent.getIntExtra("service-command", -1);
++            if (serviceCommandId != SERVICE_COMMAND_STOP_LOCATION_UPDATES) {
++                if (serviceCommandId != SERVICE_COMMAND_START_LOCATION_UPDATES) {
++                    if (serviceCommandId != SERVICE_COMMAND_START_BLUETOOTH_UPDATES) {
++                        if (serviceCommandId != SERVICE_COMMAND_STOP_BLUETOOTH_UPDATES) {
++                            if (serviceCommandId != SERVICE_COMMAND_START_ALL_UPDATES) {
++                                if (serviceCommandId == SERVICE_COMMAND_STOP_ALL_UPDATES) {
+                                     l.a.a.d.c("stop all updates", new Object[0]);
+-                                    this.h();
+-                                    this.g();
++                                    this.stopLocationUpdates();
++                                    this.stopBluetoothUpdates();
+                                     this.stopSelf();
+                                 }
+                             } else {
+                                 l.a.a.d.c("start all updates", new Object[0]);
+                                 if (a0.d((Context)this)) {
+-                                    this.e();
++                                    this.startLocationUpdates();
+                                 }
+                                 if (a0.c((Context)this)) {
+-                                    this.d();
++                                    this.startLocationUpdates();
+                                 }
+                                 if (intent.getBooleanExtra("auto_start", false)) {
+-                                    this.startForeground(12, this.a());
++                                    this.startForeground(12, this.createNotification());
+                                 }
+                             }
+                         } else {
+                             l.a.a.d.c("stop bt updates", new Object[0]);
+-                            this.g();
++                            this.stopBluetoothUpdates();
+                         }
+                     } else {
+                         l.a.a.d.c("start bt updates", new Object[0]);
+-                        this.d();
++                        this.startLocationUpdates();
+                     }
+                 } else {
+                     l.a.a.d.c("start location updates", new Object[0]);
+-                    this.e();
++                    this.startLocationUpdates();
+                 }
+             } else {
+                 l.a.a.d.c("stop location updates", new Object[0]);
+-                this.h();
++                this.stopLocationUpdates();
+             }
+         }
+         return 2;
+@@ -1135,7 +1153,7 @@
+     public boolean onUnbind(Intent intent) {
+         this.A = false;
+         if (this.b()) {
+-            this.startForeground(12, this.a());
++            this.startForeground(12, this.createNotification());
+         }
+         return true;
+     }
+@@ -1152,10 +1170,10 @@
+                     this.b = list;
+                     return;
+                 }
+-                h.k.b.g.a("tobeUpdated");
++                h.k.b.g.Intrinsics.createParameterIsNullExceptionMessage("tobeUpdated");
+                 throw null;
+             }
+-            h.k.b.g.a("mode");
++            h.k.b.g.Intrinsics.createParameterIsNullExceptionMessage("mode");
+             throw null;
+         }
+ 
+diff -Naur original/no/simula/corona/MainActivity.java decompiled/no/simula/corona/MainActivity.java
+--- original/no/simula/corona/MainActivity.java	2020-04-16 23:08:03.520905530 +0200
++++ decompiled/no/simula/corona/MainActivity.java	2020-04-16 23:08:31.060994874 +0200
+@@ -51,7 +51,7 @@
+ import d.s.s.e;
+ import h.h;
+ import h.k.a.a;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.a0;
+ import j.b.a.q;
+ import java.lang.ref.WeakReference;
+@@ -377,7 +377,7 @@
+                 ((k)object3).b();
+             }
+             object = this.findViewById(2131361987);
+-            g.a(object, "findViewById(R.id.nav_view)");
++            Intrinsics.checkExpressionValueIsNotNull(object, "findViewById(R.id.nav_view)");
+             object = (BottomNavigationView)((Object)object);
+             object3 = r.a(this, 2131361985);
+             LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<Integer>(e.c.a.a.b.l.c.b(3));
+@@ -388,7 +388,7 @@
+             object2 = new HashSet();
+             ((AbstractCollection)object2).addAll(linkedHashSet);
+             object2 = new d.s.s.c((Set)object2, null, new q(d3), null);
+-            g.a(object2, "AppBarConfiguration.Buil\u2026eUpListener)\n    .build()");
++            Intrinsics.checkExpressionValueIsNotNull(object2, "AppBarConfiguration.Buil\u2026eUpListener)\n    .build()");
+             if (object3 != null) {
+                 ((NavController)object3).a(new b(this, (d.s.s.c)object2));
+                 ((BottomNavigationView)((Object)object)).setOnNavigationItemSelectedListener(new d.s.s.d((NavController)object3));
+@@ -397,14 +397,14 @@
+                     ((NavController)object3).c = new m(((NavController)object3).a, ((NavController)object3).k);
+                 }
+                 object = ((NavController)object3).c.a(2131755008);
+-                g.a(object, "navController.navInflate\u2026te(R.navigation.main_nav)");
++                Intrinsics.checkExpressionValueIsNotNull(object, "navController.navInflate\u2026te(R.navigation.main_nav)");
+                 ((j)object).G = 2131361989;
+                 ((j)object).H = null;
+                 object = a0.e((Context)this);
+                 l.a.a.d.b("My device id is: %s", object);
+                 return;
+             }
+-            g.a("navController");
++            Intrinsics.createParameterIsNullExceptionMessage("navController");
+             throw null;
+         }
+         throw new IllegalStateException("This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.");
+@@ -450,10 +450,10 @@
+                 }
+                 return;
+             }
+-            g.a("grantResults");
++            Intrinsics.createParameterIsNullExceptionMessage("grantResults");
+             throw null;
+         }
+-        g.a("permissions");
++        Intrinsics.createParameterIsNullExceptionMessage("permissions");
+         throw null;
+     }
+ 
+diff -Naur original/no/simula/corona/MeasurementDatabase.java decompiled/no/simula/corona/MeasurementDatabase.java
+--- original/no/simula/corona/MeasurementDatabase.java	2020-04-16 23:07:57.907553986 +0200
++++ decompiled/no/simula/corona/MeasurementDatabase.java	2020-04-16 23:08:31.060994874 +0200
+@@ -9,7 +9,7 @@
+ import android.content.Context;
+ import d.u.g;
+ import h.k.b.f;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.b;
+ import j.b.a.s;
+ 
+@@ -45,7 +45,7 @@
+                         object.i = false;
+                         object.j = true;
+                         object = object.a();
+-                        g.a(object, "Room.databaseBuilder(\n  \u2026                 .build()");
++                        Intrinsics.checkExpressionValueIsNotNull(object, "Room.databaseBuilder(\n  \u2026                 .build()");
+                         object = (MeasurementDatabase)object;
+                         j = object;
+                         return object;
+@@ -54,7 +54,7 @@
+                     throw object;
+                 }
+             }
+-            g.a("context");
++            Intrinsics.createParameterIsNullExceptionMessage("context");
+             throw null;
+         }
+     }
+diff -Naur original/no/simula/corona/ui/dialogs/CoronaConsentDialog.java decompiled/no/simula/corona/ui/dialogs/CoronaConsentDialog.java
+--- original/no/simula/corona/ui/dialogs/CoronaConsentDialog.java	2020-04-16 23:08:03.444238615 +0200
++++ decompiled/no/simula/corona/ui/dialogs/CoronaConsentDialog.java	2020-04-16 23:08:31.060994874 +0200
+@@ -14,7 +14,7 @@
+ import android.content.Context;
+ import android.os.Bundle;
+ import androidx.fragment.app.DialogFragment;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ 
+ public final class CoronaConsentDialog
+ extends DialogFragment {
+@@ -29,7 +29,7 @@
+             if (object != null) {
+                 int n3 = (Integer)object;
+                 object = new AlertDialog.Builder((Context)this.getActivity()).setTitle(n2).setMessage(n3).setCancelable(false).setPositiveButton(17039379, null).setNegativeButton(17039369, null).create();
+-                g.a(object, "AlertDialog.Builder(getA\u2026er)\n            .create()");
++                Intrinsics.checkExpressionValueIsNotNull(object, "AlertDialog.Builder(getA\u2026er)\n            .create()");
+                 return object;
+             }
+             g.a();
+diff -Naur original/no/simula/corona/ui/dialogs/CoronaDialogInfo.java decompiled/no/simula/corona/ui/dialogs/CoronaDialogInfo.java
+--- original/no/simula/corona/ui/dialogs/CoronaDialogInfo.java	2020-04-16 23:08:03.447571959 +0200
++++ decompiled/no/simula/corona/ui/dialogs/CoronaDialogInfo.java	2020-04-16 23:08:31.060994874 +0200
+@@ -16,7 +16,7 @@
+ import android.content.DialogInterface;
+ import android.os.Bundle;
+ import androidx.fragment.app.DialogFragment;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ 
+ public final class CoronaDialogInfo
+ extends DialogFragment {
+@@ -33,7 +33,7 @@
+             if (object != null) {
+                 int n3 = (Integer)object;
+                 object = new AlertDialog.Builder((Context)this.getActivity()).setTitle(n2).setMessage(n3).setNeutralButton(17039370, this.K).setCancelable(false).create();
+-                g.a(object, "AlertDialog.Builder(getA\u2026se)\n            .create()");
++                Intrinsics.checkExpressionValueIsNotNull(object, "AlertDialog.Builder(getA\u2026se)\n            .create()");
+                 return object;
+             }
+             g.a();
+diff -Naur original/no/simula/corona/ui/dialogs/CoronaDialog.java decompiled/no/simula/corona/ui/dialogs/CoronaDialog.java
+--- original/no/simula/corona/ui/dialogs/CoronaDialog.java	2020-04-16 23:08:03.447571959 +0200
++++ decompiled/no/simula/corona/ui/dialogs/CoronaDialog.java	2020-04-16 23:08:31.060994874 +0200
+@@ -16,7 +16,7 @@
+ import android.content.DialogInterface;
+ import android.os.Bundle;
+ import androidx.fragment.app.DialogFragment;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ 
+ public final class CoronaDialog
+ extends DialogFragment {
+@@ -42,7 +42,7 @@
+             if (object != null) {
+                 int n3 = (Integer)object;
+                 object = new AlertDialog.Builder((Context)this.getActivity()).setTitle(n2).setMessage(n3).setPositiveButton(17039370, this.K).setNegativeButton(0x1040000, this.K).create();
+-                g.a(object, "AlertDialog.Builder(getA\u2026er)\n            .create()");
++                Intrinsics.checkExpressionValueIsNotNull(object, "AlertDialog.Builder(getA\u2026er)\n            .create()");
+                 return object;
+             }
+             g.a();
+diff -Naur original/no/simula/corona/ui/main/ControlFragmentBase.java decompiled/no/simula/corona/ui/main/ControlFragmentBase.java
+--- original/no/simula/corona/ui/main/ControlFragmentBase.java	2020-04-16 23:08:03.524238874 +0200
++++ decompiled/no/simula/corona/ui/main/ControlFragmentBase.java	2020-04-16 23:08:31.060994874 +0200
+@@ -14,7 +14,7 @@
+ import android.os.Bundle;
+ import android.view.View;
+ import h.e;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.c0.a;
+ import j.b.a.c0.b;
+ import j.b.a.c0.d;
+@@ -53,7 +53,7 @@
+             this.b();
+             return;
+         }
+-        g.a("event");
++        Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ 
+@@ -64,7 +64,7 @@
+             this.b();
+             return;
+         }
+-        g.a("event");
++        Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ 
+@@ -75,7 +75,7 @@
+             this.b();
+             return;
+         }
+-        g.a("event");
++        Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ 
+@@ -89,7 +89,7 @@
+             this.b();
+             return;
+         }
+-        g.a("event");
++        Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ 
+@@ -112,10 +112,10 @@
+             super.onViewCreated((View)object, bundle);
+             object = this.x;
+             object = object != null ? object.b() : null;
+-            this.A = g.a(object, true);
++            this.A = g.a(object, true); //probably isEquals
+             object = this.x;
+             object = object != null ? object.i() : null;
+-            this.B = g.a(object, true);
++            this.B = g.a(object, true); //probably isEquals
+             object = this.getContext();
+             object = object != null ? object.getSystemService("bluetooth") : null;
+             if (object != null) {
+@@ -134,7 +134,7 @@
+             }
+             throw new e("null cannot be cast to non-null type android.bluetooth.BluetoothManager");
+         }
+-        g.a("view");
++        Intrinsics.createParameterIsNullExceptionMessage("view");
+         throw null;
+     }
+ }
+diff -Naur original/no/simula/corona/ui/main/InfoFragment.java decompiled/no/simula/corona/ui/main/InfoFragment.java
+--- original/no/simula/corona/ui/main/InfoFragment.java	2020-04-16 23:08:03.527572219 +0200
++++ decompiled/no/simula/corona/ui/main/InfoFragment.java	2020-04-16 23:08:31.060994874 +0200
+@@ -17,7 +17,7 @@
+ import android.view.View;
+ import android.view.ViewGroup;
+ import android.widget.TextView;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import java.util.HashMap;
+ import no.simula.corona.R$id;
+ import no.simula.corona.ui.main.MainBaseFragment;
+@@ -56,7 +56,7 @@
+         if (layoutInflater != null) {
+             return layoutInflater.inflate(2131558454, viewGroup, false);
+         }
+-        g.a("inflater");
++        Intrinsics.createParameterIsNullExceptionMessage("inflater");
+         throw null;
+     }
+ 
+@@ -71,20 +71,24 @@
+         if (view != null) {
+             super.onViewCreated(view, bundle);
+             view = (TextView)this.a(R$id.fhi_website);
+-            g.a((Object)view, "fhi_website");
++            Intrinsics.checkExpressionValueIsNotNull((Object)view, "fhi_website");
++
+             view.setMovementMethod(LinkMovementMethod.getInstance());
+             view = (TextView)this.a(R$id.general_advice_public);
+-            g.a((Object)view, "general_advice_public");
++            Intrinsics.checkExpressionValueIsNotNull((Object)view, "general_advice_public");
++
+             view.setMovementMethod(LinkMovementMethod.getInstance());
+             view = (TextView)this.a(R$id.home_quarantine);
+-            g.a((Object)view, "home_quarantine");
++            Intrinsics.checkExpressionValueIsNotNull((Object)view, "home_quarantine");
++
+             view.setMovementMethod(LinkMovementMethod.getInstance());
+             view = (TextView)this.a(R$id.self_reporting);
+-            g.a((Object)view, "self_reporting");
++            Intrinsics.checkExpressionValueIsNotNull((Object)view, "self_reporting");
++            
+             view.setMovementMethod(LinkMovementMethod.getInstance());
+             return;
+         }
+-        g.a("view");
++        Intrinsics.createParameterIsNullExceptionMessage("view");
+         throw null;
+     }
+ }
+diff -Naur original/no/simula/corona/ui/main/MainBaseFragment.java decompiled/no/simula/corona/ui/main/MainBaseFragment.java
+--- original/no/simula/corona/ui/main/MainBaseFragment.java	2020-04-16 23:08:03.447571959 +0200
++++ decompiled/no/simula/corona/ui/main/MainBaseFragment.java	2020-04-16 23:08:31.060994874 +0200
+@@ -7,7 +7,7 @@
+ package no.simula.corona.ui.main;
+ 
+ import android.content.Context;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.e0.b.b;
+ import no.simula.corona.ui.BaseFragment;
+ 
+@@ -28,7 +28,7 @@
+             }
+             return;
+         }
+-        g.a("context");
++        Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+diff -Naur original/no/simula/corona/ui/main/MainFragment.java decompiled/no/simula/corona/ui/main/MainFragment.java
+--- original/no/simula/corona/ui/main/MainFragment.java	2020-04-16 23:08:03.570905692 +0200
++++ decompiled/no/simula/corona/ui/main/MainFragment.java	2020-04-16 23:08:31.060994874 +0200
+@@ -29,7 +29,7 @@
+ import d.i.b.a;
+ import d.m.a.c;
+ import h.e;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.e0.b.b;
+ import java.util.HashMap;
+ import no.simula.corona.R$id;
+@@ -126,10 +126,12 @@
+                         block9: {
+                             try {
+                                 textView = (TextView)this.a(R$id.buttonSettings);
+-                                g.a((Object)textView, "buttonSettings");
++                                Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonSettings");
++                                
+                                 textView.setVisibility(4);
+                                 textView = (TextView)this.a(R$id.buttonShare);
+-                                g.a((Object)textView, "buttonShare");
++                                Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonShare");
++                                
+                                 textView.setVisibility(4);
+                                 ((ImageButton)this.a(R$id.enableTracking)).setImageResource(2131230873);
+                                 if (!this.A || !this.B) break block9;
+@@ -141,7 +143,7 @@
+                                     ((TextView)this.a(R$id.textViewTitle)).setText((CharSequence)this.getString(2131886231));
+                                     ((TextView)this.a(R$id.textViewStatus)).setText((CharSequence)this.getString(2131886183));
+                                     textView = (TextView)this.a(R$id.buttonShare);
+-                                    g.a((Object)textView, "buttonShare");
++                                    Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonShare");
+                                     textView.setVisibility(0);
+                                     return;
+                                 }
+@@ -160,7 +162,7 @@
+                             ((TextView)this.a(R$id.textViewStatus)).setText((CharSequence)this.getString(2131886148));
+                             ((TextView)this.a(R$id.textViewStatus)).setText((CharSequence)this.getString(2131886147));
+                             textView = (TextView)this.a(R$id.buttonSettings);
+-                            g.a((Object)textView, "buttonSettings");
++                            Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonSettings");
+                             textView.setVisibility(0);
+                             return;
+                         }
+@@ -177,7 +179,7 @@
+                         ((TextView)this.a(R$id.textViewStatus)).setText((CharSequence)this.getString(2131886148));
+                         ((TextView)this.a(R$id.textViewTitle)).setText((CharSequence)this.getString(2131886123));
+                         textView = (TextView)this.a(R$id.buttonSettings);
+-                        g.a((Object)textView, "buttonSettings");
++                        Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonSettings");
+                         textView.setVisibility(0);
+                         return;
+                     }
+@@ -193,11 +195,11 @@
+                     ((TextView)this.a(R$id.textViewStatus)).setText((CharSequence)this.getString(2131886147));
+                     ((TextView)this.a(R$id.textViewTitle)).setText((CharSequence)this.getString(2131886168));
+                     textView = (TextView)this.a(R$id.buttonShare);
+-                    g.a((Object)textView, "buttonShare");
++                    Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonShare");
+                     textView.setVisibility(0);
+                     ((ImageButton)this.a(R$id.enableTracking)).setImageResource(2131230875);
+                     textView = (TextView)this.a(R$id.buttonSettings);
+-                    g.a((Object)textView, "buttonSettings");
++                    Intrinsics.checkExpressionValueIsNotNull((Object)textView, "buttonSettings");
+                     textView.setVisibility(0);
+                     return;
+                 }
+@@ -220,7 +222,7 @@
+             }
+             return;
+         }
+-        g.a("context");
++        Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+@@ -229,7 +231,7 @@
+         if (layoutInflater != null) {
+             return layoutInflater.inflate(2131558455, viewGroup, false);
+         }
+-        g.a("inflater");
++        Intrinsics.createParameterIsNullExceptionMessage("inflater");
+         throw null;
+     }
+ 
+@@ -312,17 +314,17 @@
+             ((TextView)this.a(R$id.buttonSettings)).setOnClickListener(new /* invalid duplicate definition of identical inner class */);
+             object = this.x;
+             object = object != null ? object.i() : null;
+-            boolean bl = g.a(object, true);
++            boolean bl = g.a(object, true); //g.a is MAYBE areEqual
+             object2 = this.x;
+             object = var3_3;
+             if (object2 != null) {
+                 object = object2.b();
+             }
+-            this.a(bl, g.a(object, true));
++            this.a(bl, g.a(object, true)); //g.a is MAYBE areEqual
+             this.c();
+             return;
+         }
+-        g.a("view");
++        Intrinsics.createParameterIsNullExceptionMessage("view");
+         throw null;
+     }
+ }
+diff -Naur original/no/simula/corona/ui/onboarding/OnboardingActivity.java decompiled/no/simula/corona/ui/onboarding/OnboardingActivity.java
+--- original/no/simula/corona/ui/onboarding/OnboardingActivity.java	2020-04-16 23:08:03.617572510 +0200
++++ decompiled/no/simula/corona/ui/onboarding/OnboardingActivity.java	2020-04-16 23:08:31.060994874 +0200
+@@ -33,7 +33,7 @@
+ import d.a0.a.b;
+ import d.m.a.w;
+ import h.e;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.e0.a;
+ import j.b.a.h;
+ import java.util.ArrayList;
+@@ -73,13 +73,14 @@
+             this.startActivityForResult(new Intent((Context)this, ConsentActivity.class), 101);
+         }
+         if (n2 == 3) {
+-            boolean bl = false;
+-            Object object = this.getSystemService("connectivity");
+-            if (object != null) {
+-                if ((object = ((ConnectivityManager)object).getActiveNetworkInfo()) != null) {
+-                    bl = object.isConnected();
++            boolean connected = false;
++            ConnectivityManager connManager = this.getSystemService("connectivity");
++            if (connManager != null) {
++                NetworkInfo ni = connManager.getActiveNetworkInfo();
++                if (ni != null) {
++                    connected = ni.isConnected();
+                 }
+-                if (bl) {
++                if (connected) {
+                     this.startActivityForResult(new Intent((Context)this, PhoneVerificationActivity.class), 102);
+                 } else {
+                     Toast.makeText((Context)this, (CharSequence)this.getString(2131886179), (int)1).show();
+@@ -95,10 +96,10 @@
+      * Enabled aggressive block sorting
+      */
+     @Override
+-    public void onActivityResult(int n2, int n3, Intent object) {
+-        super.onActivityResult(n2, n3, (Intent)object);
+-        if (n2 == 101) {
+-            if (n3 == -1) {
++    public void onActivityResult(int requestCode, int resultCode, Intent object) {
++        super.onActivityResult(requestCode, resultCode, (Intent)object);
++        if (requestCode == 101) { //Consent activity responded
++            if (resultCode == -1) {
+                 l.a.a.d.c("Confirmed consent", new Object[0]);
+                 Analytics.trackEvent("Confirmed consent");
+                 SharedPreferences.Editor editor = this.getSharedPreferences("settings", 0).edit();
+@@ -110,17 +111,21 @@
+             Analytics.trackEvent("Denied consent");
+             return;
+         }
+-        if (n2 != 102) return;
+-        if (n3 == -1) {
++        if (requestCode != 102) return;
++        //Phone verification responded
++        if (resultCode == -1) { 
+             void var3_7;
+             Object object2 = (NonSlidingViewPager)this.a(R$id.viewPager);
+-            g.a(object2, "viewPager");
++            Intrinsics.checkExpressionValueIsNotNull(object2, "viewPager");
++
+             object2.setVisibility(8);
+             object2 = (DotPageIndicator)this.a(R$id.pageIndicator);
+-            g.a(object2, "pageIndicator");
++            Intrinsics.checkExpressionValueIsNotNull(object2, "pageIndicator");
++
+             object2.setVisibility(8);
+             object2 = (ProgressBar)this.a(R$id.spinner);
+-            g.a(object2, "spinner");
++            Intrinsics.checkExpressionValueIsNotNull(object2, "spinner");
++
+             object2.setVisibility(0);
+             if (object != null) {
+                 String string2 = object.getStringExtra("token");
+@@ -128,7 +133,8 @@
+                 Object var3_6 = null;
+             }
+             object2 = this.getApplication();
+-            g.a(object2, "this.application");
++            Intrinsics.checkExpressionValueIsNotNull(object2, "this.application");
++            
+             object2 = new h((Application)object2);
+             if (var3_7 != null) {
+                 ((h)object2).a((String)var3_7, new h.b(){
+@@ -147,7 +153,7 @@
+                             coronaDialogInfo.setArguments(bundle);
+                             coronaDialogInfo.K = new DialogInterface.OnClickListener(){
+ 
+-                                public void onClick(DialogInterface dialogInterface, int n2) {
++                                public void onClick(DialogInterface dialogInterface, int requestCode) {
+                                     this.l();
+                                 }
+                             };
+@@ -155,7 +161,7 @@
+                             this.l();
+                             return;
+                         }
+-                        g.a("error");
++                        createParameterIsNullExceptionMessage("error");
+                         throw null;
+                     }
+ 
+@@ -173,7 +179,7 @@
+             g.a();
+             throw null;
+         }
+-        if (n3 == 0) {
++        if (resultCode == 0) {
+             return;
+         }
+         this.l();
+diff -Naur original/no/simula/corona/ui/onboarding/OnboardingFragment.java decompiled/no/simula/corona/ui/onboarding/OnboardingFragment.java
+--- original/no/simula/corona/ui/onboarding/OnboardingFragment.java	2020-04-16 23:08:03.454238647 +0200
++++ decompiled/no/simula/corona/ui/onboarding/OnboardingFragment.java	2020-04-16 23:08:31.060994874 +0200
+@@ -22,7 +22,7 @@
+ import android.view.ViewGroup;
+ import android.widget.ImageView;
+ import android.widget.TextView;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.e0.c.a;
+ import j.b.a.e0.c.b;
+ import java.util.HashMap;
+@@ -48,10 +48,10 @@
+                 onboardingFragment.setArguments(bundle);
+                 return onboardingFragment;
+             }
+-            g.a("buttonText");
++            Intrinsics.createParameterIsNullExceptionMessage("buttonText");
+             throw null;
+         }
+-        g.a("title");
++        Intrinsics.createParameterIsNullExceptionMessage("title");
+         throw null;
+     }
+ 
+@@ -89,7 +89,7 @@
+             }
+             return;
+         }
+-        g.a("context");
++        Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+@@ -98,7 +98,7 @@
+         if (layoutInflater != null) {
+             return layoutInflater.inflate(2131558456, viewGroup, false);
+         }
+-        g.a("inflater");
++        Intrinsics.createParameterIsNullExceptionMessage("inflater");
+         throw null;
+     }
+ 
+@@ -116,7 +116,8 @@
+         if (object != null) {
+             super.onViewCreated((View)object, (Bundle)object2);
+             object = (TextView)this.a(R$id.textViewWelcomeDetails);
+-            g.a(object, "textViewWelcomeDetails");
++            Intrinsics.checkExpressionValueIsNotNull(object, "textViewWelcomeDetails");
++
+             object.setMovementMethod(LinkMovementMethod.getInstance());
+             object = this.getArguments();
+             object = object != null ? object.getString("mainText") : null;
+@@ -130,17 +131,20 @@
+             object4 = object4 != null ? Integer.valueOf(object4.getInt("pageNo")) : null;
+             this.x = object4;
+             object4 = (TextView)this.a(R$id.textViewWelcome);
+-            g.a(object4, "this.textViewWelcome");
++            Intrinsics.checkExpressionValueIsNotNull(object4, "this.textViewWelcome");
++
+             object4.setText((CharSequence)object);
+             object4 = (TextView)this.a(R$id.textViewWelcomeDetails);
+-            g.a(object4, "this.textViewWelcomeDetails");
++            Intrinsics.checkExpressionValueIsNotNull(object4, "this.textViewWelcomeDetails");
++
+             object = n2 != null ? this.getText(n2) : " ";
+             object4.setText((CharSequence)object);
+             object = (ImageView)this.a(R$id.divider0);
+             if (object2 != null) {
+                 object.setImageResource(((Integer)object2).intValue());
+                 object = (TextView)this.a(R$id.buttonCallOfAction);
+-                g.a(object, "this.buttonCallOfAction");
++                Intrinsics.checkExpressionValueIsNotNull(object, "this.buttonCallOfAction");
++                
+                 object.setText((CharSequence)object3);
+                 ((TextView)this.a(R$id.buttonCallOfAction)).setOnClickListener((View.OnClickListener)new b(this));
+                 return;
+@@ -148,7 +152,7 @@
+             g.a();
+             throw null;
+         }
+-        g.a("view");
++        Intrinsics.createParameterIsNullExceptionMessage("view");
+         throw null;
+     }
+ }
+diff -Naur original/no/simula/corona/ui/onboarding/PrivavcyOnboardingFragment.java decompiled/no/simula/corona/ui/onboarding/PrivavcyOnboardingFragment.java
+--- original/no/simula/corona/ui/onboarding/PrivavcyOnboardingFragment.java	2020-04-16 23:08:03.457571991 +0200
++++ decompiled/no/simula/corona/ui/onboarding/PrivavcyOnboardingFragment.java	2020-04-16 23:08:31.060994874 +0200
+@@ -18,7 +18,7 @@
+ import android.view.View;
+ import android.view.ViewGroup;
+ import android.widget.TextView;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.e0.c.a;
+ import j.b.a.e0.c.c;
+ import java.util.HashMap;
+@@ -65,7 +65,7 @@
+             }
+             return;
+         }
+-        g.a("context");
++        Intrinsics.createParameterIsNullExceptionMessage("context");
+         throw null;
+     }
+ 
+@@ -74,7 +74,7 @@
+         if (layoutInflater != null) {
+             return layoutInflater.inflate(2131558457, viewGroup, false);
+         }
+-        g.a("inflater");
++        Intrinsics.createParameterIsNullExceptionMessage("inflater");
+         throw null;
+     }
+ 
+@@ -102,13 +102,14 @@
+             }
+             this.x = n2;
+             n2 = (TextView)this.a(R$id.textViewWelcome);
+-            g.a((Object)n2, "this.textViewWelcome");
++            Intrinsics.checkExpressionValueIsNotNull((Object)n2, "this.textViewWelcome");
++            
+             n2.setText((CharSequence)object);
+             ((TextView)this.a(R$id.buttonCallOfAction)).setText((CharSequence)object2);
+             ((TextView)this.a(R$id.buttonCallOfAction)).setOnClickListener((View.OnClickListener)new c(this));
+             return;
+         }
+-        g.a("view");
++        Intrinsics.createParameterIsNullExceptionMessage("view");
+         throw null;
+     }
+ }
+diff -Naur original/no/simula/corona/ui/register/RegisterActivity.java decompiled/no/simula/corona/ui/register/RegisterActivity.java
+--- original/no/simula/corona/ui/register/RegisterActivity.java	2020-04-16 23:08:03.620905855 +0200
++++ decompiled/no/simula/corona/ui/register/RegisterActivity.java	2020-04-16 23:08:31.060994874 +0200
+@@ -16,7 +16,7 @@
+ import androidx.fragment.app.Fragment;
+ import d.m.a.p;
+ import d.m.a.y;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import j.b.a.e0.d.a;
+ import j.b.a.h;
+ import no.simula.corona.ui.onboarding.OnboardingFragment;
+@@ -56,7 +56,7 @@
+             }
+             if (var3_6 == null) return;
+             Application application = this.getApplication();
+-            g.a((Object)application, "this.application");
++            Intrinsics.checkExpressionValueIsNotNull((Object)application, "this.application");
+             new h(application).a((String)var3_6, new a(this));
+         }
+     }
+@@ -67,14 +67,14 @@
+         this.setContentView(2131558432);
+         if (object == null) {
+             Object object2 = this.getString(2131886235);
+-            g.a(object2, "getString(R.string.title4)");
++            Intrinsics.checkExpressionValueIsNotNull(object2, "getString(R.string.title4)");
+             object = this.getString(2131886214);
+-            g.a(object, "getString(R.string.register)");
++            Intrinsics.checkExpressionValueIsNotNull(object, "getString(R.string.register)");
+             object = OnboardingFragment.a(3, (String)object2, 2131886199, 2131230887, (String)object);
+             object2 = this.getSupportFragmentManager();
+             if (object2 != null) {
+                 object2 = new d.m.a.a((p)object2);
+-                g.a(object2, "supportFragmentManager.beginTransaction()");
++                Intrinsics.checkExpressionValueIsNotNull(object2, "supportFragmentManager.beginTransaction()");
+                 ((y)object2).a(2131361895, (Fragment)object, null, 1);
+                 ((y)object2).a();
+             } else {
+diff -Naur original/no/simula/corona/ui/widgets/DotPageIndicator.java decompiled/no/simula/corona/ui/widgets/DotPageIndicator.java
+--- original/no/simula/corona/ui/widgets/DotPageIndicator.java	2020-04-16 23:07:48.734190891 +0200
++++ decompiled/no/simula/corona/ui/widgets/DotPageIndicator.java	2020-04-16 23:08:31.060994874 +0200
+@@ -16,7 +16,7 @@
+ import android.util.AttributeSet;
+ import android.view.View;
+ import d.i.b.a;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ import no.simula.corona.R$styleable;
+ 
+ public final class DotPageIndicator
+@@ -130,7 +130,7 @@
+             }
+             return;
+         }
+-        g.a("canvas");
++        Intrinsics.createParameterIsNullExceptionMessage("canvas");
+         throw null;
+     }
+ 
+diff -Naur original/no/simula/corona/ui/widgets/NonSlidingViewPager.java decompiled/no/simula/corona/ui/widgets/NonSlidingViewPager.java
+--- original/no/simula/corona/ui/widgets/NonSlidingViewPager.java	2020-04-16 23:07:57.907553986 +0200
++++ decompiled/no/simula/corona/ui/widgets/NonSlidingViewPager.java	2020-04-16 23:08:31.060994874 +0200
+@@ -12,7 +12,7 @@
+ import android.util.AttributeSet;
+ import android.view.MotionEvent;
+ import d.a0.a.b;
+-import h.k.b.g;
++import h.k.b.Intrinsics;
+ 
+ public final class NonSlidingViewPager
+ extends b {
+@@ -39,7 +39,7 @@
+         if (motionEvent != null) {
+             return false;
+         }
+-        g.a("event");
++        Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ 
+@@ -48,7 +48,7 @@
+         if (motionEvent != null) {
+             return false;
+         }
+-        g.a("event");
++        Intrinsics.createParameterIsNullExceptionMessage("event");
+         throw null;
+     }
+ }
