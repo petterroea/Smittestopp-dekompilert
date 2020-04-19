@@ -2,7 +2,7 @@
 
 ## Viktig
 
-Jeg har kommet såpass langt at jeg ikke lenger ser på det som hensiktsmessig å publisere endringene mine offentlig. En writeup vil komme snart, med mine funn.
+Jeg har kommet såpass langt at jeg ikke lenger ser på det som hensiktsmessig å publisere endringene mine offentlig. En writeup vil komme snart, med mine funn. Se [writeup.md](writeup.md)
 
 ## Om prosjektet
 
