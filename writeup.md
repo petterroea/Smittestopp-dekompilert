@@ -97,7 +97,7 @@ Smittestopp genererer ikke tilfeldige ord som sendes ut. Smittestopp får en "`d
 
 Du burde nok enda installere appen. Angrepsvektorene diskutert ovenfor krever alle at du fysisk er sammen med en angriper. Det er potensielt mulig at apper fra andre land kan få oppdateringer som saboterer for smittestopp, og dermed kan konvertere intetanende brukere til ondsinnede noder. Dette er dog lite sannsynlig, de eieren hadde mistet mye omdømme.
 
-Da du uansett skal være hjemme, vil sporing også ha mindre nytteverdi. **En mulig mitigering av sporingsproblemet er å skru av appen når du er hjemme, og heller selektivt skru den på når du drar ut av huset**. Slik beholder du nytten, uten at kriminelle/etc kan sjekke om du er hjemme.
+Da du uansett skal være hjemme så mye som mulig, vil ondsinnet sporing også ha mindre nytteverdi. **En mulig mitigering av sporingsproblemet er å skru av appen når du er hjemme, og heller selektivt skru den på når du drar ut av huset**. Slik beholder du nytten, uten at kriminelle/etc kan sjekke om du er hjemme.
 
 De fleste problemene med appen fører til dårlige resultater og redusert nytte. Dersom du stoler på myndighetene, er appen trygg for dagligdags bruk.
 
