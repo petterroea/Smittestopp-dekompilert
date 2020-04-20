@@ -2,7 +2,9 @@
 
 ## Viktig
 
-Jeg har kommet såpass langt at jeg ikke lenger ser på det som hensiktsmessig å publisere endringene mine offentlig. Første revisjon av diff-filen ligger der enda, i tilfelle det er interesse for oppsettet jeg har laget for å generere diff-filene. En writeup vil komme snart, med mine funn. Se [writeup.md](writeup.md)
+Jeg har kommet såpass langt at jeg ikke lenger ser på det som hensiktsmessig å publisere endringene mine offentlig. Intensjonen min har alltid vært å vise hva en amatør kan få til på et par dager. Da det har gått et par dager, ønsker jeg ikke lenger å dele videre arbeid. Jeg vil vise hvor lett det er å deobfuskere appen, ikke gi angripere en fullstendig kopi av kildekoden. Da koden har blitt deobfuskert for hånd er det også flere feil, hvorvidt noen ikke er rettet.
+
+Første revisjon av diff-filen ligger der enda, i tilfelle det er interesse for oppsettet jeg har laget for å generere diff-filene. En writeup vil komme snart, med mine funn. Se [writeup.md](writeup.md)
 
 ## Om prosjektet
 
