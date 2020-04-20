@@ -73,7 +73,7 @@ Dersom Android-versjonen er mindre enn 26(Oreo), bruker [AlarmManager](https://d
 
 Smittestopp viser et ærlig forsøk på en ansvarlig utviklet app, gitt kravene satt av Simula. Først og fremst vil jeg peke ut den kraftige bruken av APIer fra reputable aktører som Nordic Semiconductor og Microsoft. Å ikke lage hjemmesnekra løsninger er er veldig lovende tegn - se på Australia, som prøvde seg på hjemmesnekra anonymisering av gps-koordinater: https://twitter.com/xssfox/status/1251116087116042241
 
-Det kan argumenteres om at appen i seg selv er hjemmesnekra - det finnes løsninger foretrukket av sikkerhetsekspert som blir tatt i bruk av andre land. Dette er dog ikke tilfellet fra synspunktet til Simula, som ønsker ekstra funksjonalitet i den Norske appen. Det er en fordel å kunne forske på bevegelsesmønstre, da dette er en veldig unik situasjon med mye vi kan lære om menneskelig oppførsel ved introduksjon av forskjellige tiltak mot smitte.
+Det kan argumenteres om at appen i seg selv er hjemmesnekra - det finnes løsninger foretrukket av sikkerhetseksperter som blir tatt i bruk av andre land. Dette er dog ikke tilfellet fra synspunktet til Simula, som ønsker ekstra funksjonalitet i den Norske appen. Det er en fordel å kunne forske på bevegelsesmønstre, da dette er en veldig unik situasjon med mye vi kan lære om menneskelig oppførsel ved introduksjon av forskjellige tiltak mot smitte.
 
 Appen i seg selv ser ikke ut til å være utviklet med obfuskering i tankene - det ser ut som at simula har gått for en middelvei hvor de verken ønsker å legge ut kildekoden, ei obfuskere den nok til at dette er et problem at koden ikke er lagt ut. Det tar bare et par dager ekstra for _alle_ å finne problemer.
 
