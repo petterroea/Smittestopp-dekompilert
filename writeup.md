@@ -20,7 +20,7 @@ c46762392fa4c73a0bc6df318e6cd072f6bbeaa011d12dce2981216574a79b8d  apk/base.apk
 
 Ingen nye sikkerhetshull blir offentliggjort her. Alle foreslåtte risikoer og angrep er spekulasjon basert på eksisterende, kjente sikkerhetshull.
 
-Hverken simula eller FHI har annonsert kanaler for å rapportere inn sikkerhetshull. I situasjoner som dette brukes ofte [Responsible disclosure](https://en.wikipedia.org/wiki/Responsible_disclosure) i sikkerhetsindustrien. Det vil si, personen som finner sikkerhetshull gir produsenten rimelig tid til å fikse problemet før sikkerhetshullet blir offentliggjort. Det er derfor ønsket at FHI/simula annonserer en konkret kanal å bruke for å rapportere problemer.
+Hverken simula eller FHI har annonsert kanaler for å rapportere inn sikkerhetshull eller bugs. I situasjoner som dette brukes ofte [Responsible disclosure](https://en.wikipedia.org/wiki/Responsible_disclosure) i sikkerhetsindustrien. Det vil si, personen som finner sikkerhetshull gir produsenten rimelig tid til å fikse problemet før sikkerhetshullet blir offentliggjort. Det er derfor ønsket at FHI/simula annonserer en konkret kanal å bruke for å rapportere problemer.
 
 ## Om forfatteren
 
