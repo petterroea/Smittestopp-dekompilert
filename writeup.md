@@ -89,7 +89,7 @@ Det er derfor ikke umulig at NSA allerede har tilgang på produksjonsdatabasen t
 
 ### DeviceID-problemet
 
-En veldig godt likt løsning går ut på at en smittesporingsapp sender ut tilfeldige ord. Disse huskes av både sender, og alle som hører det. Det gjør at myndighetene kan si "alle som har hørt ordet eple må i karantene", helt anonymt for resten av brukerne. 
+En veldig godt likt løsning går ut på at en smittesporingsapp sender ut tilfeldige ord. Disse huskes av både sender, og alle som hører det. Det gjør at myndighetene kan si "alle som har hørt ordet eple må i karantene", uten at noen får vite hvem det var som sa ordet.
 
 Smittestopp genererer ikke tilfeldige ord som sendes ut. Smittestopp får en "`deviceId`" fra skytjenesten, som den bruker for å unikt identifisere seg selv. Denne id'en annonseres til andre telefoner. Konsekvensen er at andre kan "kjenne deg igjen", og dette er utgangspunktet for å kunne spore noen. [Hallvard Nygård gikk ut med dette i VG](https://www.vg.no/nyheter/innenriks/i/y3dwae/). Han bruker som eksempel på risikoen med dette opplegget at du kan legge en telefon med en spesial-kodet sporingsapp i nærheten av huset til noen, og dermed vite om de er hjemme. 
 
