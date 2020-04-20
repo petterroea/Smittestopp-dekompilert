@@ -38,6 +38,7 @@ Det finnes andre prosjekter som ser på appen. Noen av disse har kommet lenger e
  * https://twitter.com/msandbu/status/1250900953160724481
  * https://github.com/djkaty/no.simula.smittestopp/
  * https://github.com/ninjaspl0it/smittestopp-pentest
+ * https://www.facebook.com/olealgoritme/posts/10157798340370399
 
 
 iOS-versjonen av appen er det ingen kjente forsøk på å dekompilere, antageligvis da de fleste som ser på dette er late og tar _the path of least resistance_. Dette er enten bra eller dårlig for iOS.
@@ -95,13 +96,15 @@ Smittestopp genererer ikke tilfeldige ord som sendes ut. Smittestopp får en "`d
 
 ## Anbefalninger
 
-Du burde nok enda installere appen. Angrepsvektorene diskutert ovenfor krever alle at du fysisk er sammen med en angriper. Det er potensielt mulig at apper fra andre land kan få oppdateringer som saboterer for smittestopp, og dermed kan konvertere intetanende brukere til ondsinnede noder. Dette er dog lite sannsynlig, de eieren hadde mistet mye omdømme.
+Hvorvidt du skal installere appen må nesten være opp til deg. Angrepsvektorene diskutert ovenfor krever at du fysisk er sammen med en angriper. Det er potensielt mulig at apper fra andre land kan få oppdateringer som saboterer for smittestopp, og dermed kan konvertere intetanende brukere til et nettverk med ondsinnede noder. Dette er dog lite sannsynlig, de eieren hadde mistet mye omdømme. 
 
 Da du uansett skal være hjemme så mye som mulig, vil ondsinnet sporing også ha mindre nytteverdi. **En mulig mitigering av sporingsproblemet er å skru av appen når du er hjemme, og heller selektivt skru den på når du drar ut av huset**. Slik beholder du nytten, uten at kriminelle/etc kan sjekke om du er hjemme.
 
-De fleste problemene med appen fører til dårlige resultater og redusert nytte. Dersom du stoler på myndighetene, er appen trygg for dagligdags bruk.
+De fleste problemene med appen kan føre til dårlige resultater og redusert nytte for Simula/FHI. Dersom du stoler på myndighetene, er appen trygg for dagligdags bruk.
 
 Selv om "konspirasjonsteorien" om at NSA har tilgang til produksjonsdatabasen til appen hadde vært sann, har de(eller Norske myndigheter) likevel lite interesse av deg som enkeltindivid. Dersom du derimot gjør ting du vet andre kan ha noe imot, eller holder på med kildevern, **burde du kanskje vurdere å ikke installere appen**. Det er mange gode artikler skrevet på hvordan å ha bra "opsec" når du vil unngå å bli sporet, og mange av tipsene gjør det vanskelig å bruke denne appen. Merk at du da burde ha god kontroll over hvem du har hatt kontakt med - **det hadde vært problematisk om du ikke installerer appen og ikke kan redegjøre for hvem du skal kontakte for å advare om smitte**
+
+Merk at skytjenesten ikke har blitt sett på av noen, og kan godt være usikker. Det er ingen lovlig måte for oss å finne ut for øyeblikket. Det er dog lovende at de virker til å bare bruke ferdiglagde systemer her, men det er fullt mulig å konfigurere disse feil. Personlig installerte jeg appen, men føler meg usikker etter å ha gjort dette arbeidet. Jeg kommer til å revurdere installasjon av appen om noen uker når jeg har sett hva slags arbeid som har blitt gjort for å sikre den, men kontaktsporingssystemet kan være dømt til å være utrygt på dette stadiet.
 
 Antageligvis vil et par uker med bugfikser føre til en solid app - den har blitt utviklet i et hastverk. Flere features mangler, blant annet rapportering av kontakt med en som er bekreftet smittet. Simula har allerede lastet opp flere nye versjoner som jeg ikke har analysert, og svarer aktivt på negative anmeldelser på Play Store som klager på bugs. Dersom Simula åpner kildekoden, eller i hvertfall kunngjør en offisiell portal for bugreporting, kan enda flere problemer bli fikset, før folk med dårlige intensjoner finner de. 
 

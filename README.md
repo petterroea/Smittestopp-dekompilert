@@ -27,6 +27,7 @@ Dette prosjektet er ikke det eneste forsøket på å undersøke appen uten kilde
  * https://twitter.com/msandbu/status/1250900953160724481
  * https://github.com/djkaty/no.simula.smittestopp/
  * https://github.com/ninjaspl0it/smittestopp-pentest
+ * https://www.facebook.com/olealgoritme/posts/10157798340370399
 
 
 ### Lenker
